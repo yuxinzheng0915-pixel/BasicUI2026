@@ -57,7 +57,35 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Main(modifier: Modifier = Modifier) {
-    Box() {
+    Box(
+        modifier = modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Image(
+                painter = painterResource(id = R.drawable.animal2),
+                contentDescription = "android.png",
+                modifier = Modifier.size(90.dp)
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+
+            Image(
+                painter = painterResource(id = R.drawable.animal6),
+                contentDescription = "android.png",
+                modifier = Modifier.size(90.dp)
+            )
+            Spacer(modifier = Modifier.width(10.dp))
+            Image(
+                painter = painterResource(id = R.drawable.animal3),
+                contentDescription = "android.png",
+                modifier = Modifier.size(90.dp)
+            )
+        }
+
         LazyColumnExample(modifier)
         ColumnExample(modifier)
         TextFieldExample(modifier)
