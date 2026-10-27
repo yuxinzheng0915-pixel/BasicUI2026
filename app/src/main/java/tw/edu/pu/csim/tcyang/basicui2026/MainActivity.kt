@@ -80,7 +80,7 @@ fun Main(modifier: Modifier = Modifier) {
             )
             Spacer(modifier = Modifier.width(10.dp))
             Image(
-                painter = painterResource(id = R.drawable.animal3),
+                painter = painterResource(id = R.drawable.animal4),
                 contentDescription = "android.png",
                 modifier = Modifier.size(90.dp)
             )
