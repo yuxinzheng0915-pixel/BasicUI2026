@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.gestures.detectTapGestures
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -19,6 +21,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
@@ -57,38 +61,11 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun Main(modifier: Modifier = Modifier) {
-    Box(
-        modifier = modifier.fillMaxWidth(),
-        contentAlignment = Alignment.Center
-    ) {
-        Row(
-            modifier = Modifier.fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
-                painter = painterResource(id = R.drawable.animal2),
-                contentDescription = "android.png",
-                modifier = Modifier.size(90.dp)
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-
-            Image(
-                painter = painterResource(id = R.drawable.animal6),
-                contentDescription = "android.png",
-                modifier = Modifier.size(90.dp)
-            )
-            Spacer(modifier = Modifier.width(10.dp))
-            Image(
-                painter = painterResource(id = R.drawable.animal4),
-                contentDescription = "android.png",
-                modifier = Modifier.size(90.dp)
-            )
-        }
-
+    Box() {
         LazyColumnExample(modifier)
         ColumnExample(modifier)
         TextFieldExample(modifier)
+        LazyColumnExample(modifier)
     }
 }
 
@@ -114,7 +91,7 @@ fun ColumnExample(modifier: Modifier = Modifier) {
     Column (
         modifier = modifier
             .fillMaxSize()
-            .background(Color(0x8aE0BBE4))
+            .background(Color(0xffE0BBE4))
             .pointerInput( key1 = Unit){
                 detectTapGestures(
                     onTap = { msg = "短按"},
@@ -180,4 +157,51 @@ fun TextFieldExample(modifier: Modifier = Modifier) {
     }
 
 }
+
+data class Animal(
+    val name: String,
+    @DrawableRes val imageRes: Int
+)
+
+@Composable
+fun LazyRowExample(modifier: Modifier = Modifier) {
+    val animals = listOf(
+        Animal("鴨子", R.drawable.animal0),
+        Animal("企鵝", R.drawable.animal1),
+        Animal("青蛙", R.drawable.animal2),
+        Animal("貓頭鷹", R.drawable.animal3),
+        Animal("海豚", R.drawable.animal4),
+        Animal("牛", R.drawable.animal5),
+        Animal("無尾熊", R.drawable.animal6),
+        Animal("獅子", R.drawable.animal7),
+        Animal("狐狸", R.drawable.animal8),
+        Animal("小雞", R.drawable.animal9)
+    )
+
+    LazyRow (
+        modifier = Modifier.fillMaxHeight(),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        // 直接傳入 animals 清單，每個迴圈拿到一個 animal 物件
+        items(animals) { animal ->
+            Column(
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.Center,
+                modifier = Modifier.fillMaxSize()
+            ) {
+                Image(
+                    painter = painterResource(id = animal.imageRes),
+                    contentDescription = animal.name,
+                    modifier = Modifier.size(150.dp)
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "${animal.name}"
+                )
+            }
+        }
+    }
+}
+
+
 
