@@ -68,7 +68,7 @@ fun Main(modifier: Modifier = Modifier) {
         LazyColumnExample(modifier)
         ColumnExample(modifier)
         TextFieldExample(modifier)
-        LazyColumnExample(modifier)
+        LazyRowExample(modifier)
     }
 }
 
